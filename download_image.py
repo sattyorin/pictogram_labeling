@@ -7,7 +7,7 @@ import requests
 KEYWORDS_CSV_PATH = "data/keywords.csv"
 PREFIX = "https://..."
 SUFFIX = ".png"
-IMAGES_DIRECTORY = "images"
+IMAGE_DIRECTORY = "images"
 SLEEP_TIME = 1
 
 
@@ -27,5 +27,5 @@ if __name__ == "__main__":
     for index in keywords.index:
         url = f"{PREFIX}{index}{SUFFIX}"
         save_filename = f"{index}{SUFFIX}"
-        download_image(url, os.path.join(IMAGES_DIRECTORY, save_filename))
+        download_image(url, os.path.join(IMAGE_DIRECTORY, save_filename))
         time.sleep(SLEEP_TIME)
