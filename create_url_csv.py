@@ -1,5 +1,9 @@
 import pandas as pd
 
+"""
+Increase the number of pages for this link.
+"""
+
 page_num = 1
 url = "https://....."
 
