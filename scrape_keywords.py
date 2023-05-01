@@ -1,5 +1,5 @@
-# import os
 import json
+import os
 import time
 
 import pandas as pd
@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 INPUT_FILE_PATH = "icons.csv"
 OUTPUT_DIR_PATH = "keywords.csv"
+DATA_DIRECTORY = "data"
 
 PREFIX = "https://......"
 SUFFIX = ".png"
@@ -15,7 +16,7 @@ SUFFIX = ".png"
 SLEEP_TIME = 1
 USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/Chrome/84.0.4147.135 Safari/537.36"  # NOQA
 
-icons_df = pd.read_csv(INPUT_FILE_PATH)
+icons_df = pd.read_csv(os.path.join(DATA_DIRECTORY, INPUT_FILE_PATH))
 headers = {"User-Agent": USER_AGENT}
 indexed_keywords = []
 
@@ -39,4 +40,4 @@ for url in icons_df["url"]:
         dict((index, d) for index, d in indexed_keywords), orient="index"
     )
 
-keywords_df.to_csv(OUTPUT_DIR_PATH)
+keywords_df.to_csv(os.path.join(DATA_DIRECTORY, OUTPUT_DIR_PATH))

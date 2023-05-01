@@ -1,3 +1,4 @@
+import os
 import time
 
 import pandas as pd
@@ -9,8 +10,11 @@ from selenium.webdriver.common.by import By
 
 SLEEP_TIME = 3
 URL_ICON = "https://......"
+DATA_DIRECTORY = "data"
 
-collection_icon_df = pd.read_csv("collection_icon.csv")
+collection_icon_df = pd.read_csv(
+    os.path.join(DATA_DIRECTORY, "collection_icon.csv")
+)
 
 options = ChromeOptions()
 options.add_argument("--headless")
@@ -30,6 +34,6 @@ for url in collection_icon_df["url"]:
             icon_links.append(href)
 
 icons_df = pd.DataFrame(icon_links, columns=["url"])
-icons_df.to_csv("icons.csv", index=False)
+icons_df.to_csv(os.path.join(DATA_DIRECTORY, "icons.csv"), index=False)
 
 driver.quit()
