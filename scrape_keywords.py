@@ -40,4 +40,5 @@ for url in icons_df["url"]:
         dict((index, d) for index, d in indexed_keywords), orient="index"
     )
 
+keywords_df.columns = [f"keywords{column}" for column in keywords_df.columns]
 keywords_df.to_csv(os.path.join(DATA_DIRECTORY, OUTPUT_DIR_PATH))
