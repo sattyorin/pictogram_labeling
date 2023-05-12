@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
 
 
-@app.route("/api/upload", methods=["POST"])
+@app.route("/upload", methods=["POST"])
 def upload_file():
     if "image" not in request.files:
         return jsonify({"success": False, "message": "No file part"}), 400
