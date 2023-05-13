@@ -1,3 +1,4 @@
+import argparse
 import os
 import time
 
@@ -6,14 +7,29 @@ from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
 
-# import chromedriver_binary  # NOQA
-
+SAVE_CSV_FILE_PATH = "data/icons.csv"
+COLLECTION_ICON_FILE_PATH = "data/collection_icon.csv"
 SLEEP_TIME = 3
-URL_ICON = "https://......"
-DATA_DIRECTORY = "data"
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--url",
+    type=str,
+    required=True,
+    help="URL of the website to scrape",
+)
+args = parser.parse_args()
+
+# create file path
+execution_dir_path = os.path.dirname(os.path.abspath(__file__))
+csv_file_path = os.path.join(execution_dir_path, SAVE_CSV_FILE_PATH)
+save_csv_dir_path = os.path.join(
+    execution_dir_path, os.path.dirname(SAVE_CSV_FILE_PATH)
+)
+
+# read collection_icon.csv
 collection_icon_df = pd.read_csv(
-    os.path.join(DATA_DIRECTORY, "collection_icon.csv")
+    os.path.join(execution_dir_path, COLLECTION_ICON_FILE_PATH)
 )
 
 options = ChromeOptions()
@@ -30,10 +46,10 @@ for url in collection_icon_df["url"]:
 
     for link in driver.find_elements(By.TAG_NAME, "a"):
         href = link.get_attribute("href")
-        if href and href.startswith(URL_ICON):
+        if href and href.startswith(args.url):
             icon_links.append(href)
 
 icons_df = pd.DataFrame(icon_links, columns=["url"])
-icons_df.to_csv(os.path.join(DATA_DIRECTORY, "icons.csv"), index=False)
+icons_df.to_csv(csv_file_path, index=False)
 
 driver.quit()
