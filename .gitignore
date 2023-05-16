@@ -1,4 +1,5 @@
-data/
+data/*
+!collection_icons_example.csv
 images/
 converted_images/
 setup.cfg
