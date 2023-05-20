@@ -3,6 +3,8 @@
 input_dir="images"
 output_dir="converted_images"
 
+mkdir -p $output_dir
+
 for file in "$input_dir"/*.png; do
   output_file="$output_dir/$(basename "$file")"
   
